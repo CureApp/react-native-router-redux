@@ -36,10 +36,18 @@ const rightButton = (props = {}) => {
   };
 };
 
-const statusBar = props => ({
-  hidden: props.statusHidden || false,
-  style: props.statusStyle || 'default',
-});
+const statusBar = props => {
+  if (typeof props.status === 'object') {
+    return props.status
+  }
+  return {
+    hidden: props.statusHidden || false,
+    style: props.statusStyle || 'default',
+    tintColor: props.statusTintColor || 'rgba(0, 0, 0, 0)',
+    hideAnimation: props.statusHideAnimation || 'slide',
+    showAnimation: props.statusShowAnimation || 'slide',
+  }
+};
 
 const title = props => {
   if (props.navTitle && React.isValidElement(props.navTitle)) {
