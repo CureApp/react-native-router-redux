@@ -14,12 +14,19 @@ const onSelect = props => el => {
   };
 };
 
-const imageStyle = props => ({
+const IMAGE_STYLE_DEFAULT = {
   height: 25,
   resizeMode: 'contain',
-  tintColor: props.selectionColor || '#929292',
   width: 30,
-});
+}
+const imageStyle = props => {
+  if (props.tabStyles.tint) {
+    return Object.assign({
+      tintColor: props.tabStyles.tint,
+    }, IMAGE_STYLE_DEFAULT)
+  }
+  return IMAGE_STYLE_DEFAULT
+};
 
 const tabBarStyle = props => ({
   backgroundColor: props.tabBackgroundImage
