@@ -86,6 +86,7 @@ class Router extends React.Component {
         this.tabStyles[tabBarName] = {
           barTint: child.props.barTint,
           tint: child.props.tint,
+          selectedOpacity: child.props.selectedOpacity,
         };
         actions.routes[tabBarName] = {};
         React.Children.forEach(child.props.children, (tabChild, tabIndex) => {

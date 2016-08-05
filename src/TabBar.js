@@ -36,10 +36,18 @@ const tabBarStyle = props => ({
   borderTopWidth: 1,
 });
 
-const tabContainerStyle = () => ({
+const TAB_CONTAINER_STYLE_DEFAULT = {
   alignItems: 'center',
   justifyContent: 'center',
-});
+}
+const tabContainerStyle = props => {
+  if (props.selected) {
+    return Object.assign({
+      opacity: props.tabStyles.selectedOpacity,
+    }, TAB_CONTAINER_STYLE_DEFAULT)
+  }
+  return TAB_CONTAINER_STYLE_DEFAULT
+};
 
 const textStyle = props => ({
   color: props.selectionColor || '#929292',
@@ -54,7 +62,7 @@ class TabBarIcon extends Component {
     const { name, tabItem } = this.props;
 
     return (
-      <View name={name} style={tabContainerStyle()}>
+      <View name={name} style={tabContainerStyle(this.props)}>
         {tabItem.icon &&
           <Image
             source={tabItem.icon}
