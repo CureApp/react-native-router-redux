@@ -22,7 +22,9 @@ const imageStyle = props => ({
 });
 
 const tabBarStyle = props => ({
-  backgroundColor: props.tabStyles.barTint || '#F9F9F9',
+  backgroundColor: props.tabBackgroundImage
+      ? 'rgba(0, 0, 0, 0)'
+      : (props.tabStyles.barTint || '#F9F9F9'),
   borderTopColor: '#D8D8D8',
   borderTopWidth: 1,
 });
@@ -83,13 +85,31 @@ export default class TabBar extends Component {
       );
     });
 
+    if (this.props.tabBackgroundImage) {
+      return (
+        <Image
+          source={this.props.tabBackgroundImage}
+          style={{height: 50}}
+        >
+          <Tabs
+            activeOpacity={1.0}
+            onSelect={onSelect(this.props)}
+            selected={this.props.activeTab}
+            style={tabBarStyle(this.props)}
+          >
+            {tabBarItems}
+          </Tabs>
+        </Image>
+      );
+    }
+
     return (
       <Tabs
         activeOpacity={1.0}
         onSelect={onSelect(this.props)}
         selected={this.props.activeTab}
         style={tabBarStyle(this.props)}
-        >
+      >
         {tabBarItems}
       </Tabs>
     );
