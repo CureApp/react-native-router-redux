@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import NavigationBar from 'react-native-navbar';
-import { StyleSheet } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+} from 'react-native';
 
 const leftButton = (props = {}, transitioning) => {
   if (props.navLeft && React.isValidElement(props.navLeft)) {
@@ -86,6 +89,23 @@ class NavBarBase extends Component {
   }
 
   render() {
+    if (this.props.navBackgroundImage) {
+      return (
+        <Image
+          source={this.props.navBackgroundImage}
+          style={{ height: 64, }}
+        >
+          <NavigationBar
+            leftButton={leftButton(this.props, this.transitioning)}
+            rightButton={rightButton(this.props)}
+            statusBar={statusBar(this.props)}
+            tintColor={'rgba(0, 0, 0, 0)'}
+            title={title(this.props)}
+          />
+        </Image>
+      );
+    }
+
     return (
       <NavigationBar
         leftButton={leftButton(this.props, this.transitioning)}
@@ -93,7 +113,7 @@ class NavBarBase extends Component {
         statusBar={statusBar(this.props)}
         tintColor={this.props.navTint || 'white'}
         title={title(this.props)}
-        />
+      />
     );
   }
 
