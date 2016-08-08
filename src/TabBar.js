@@ -53,7 +53,6 @@ const textStyle = props => ({
   color: props.selectionColor || '#929292',
   fontSize: 10,
   letterSpacing: 0.2,
-  marginBottom: 2,
   marginTop: 4,
 });
 
