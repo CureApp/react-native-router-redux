@@ -5,6 +5,7 @@ import { NavBar } from './src/NavBar';
 import TabBar from './src/TabBar';
 import * as actions from './src/actions';
 import reducer from './src/reducer';
+import { Dimensions } from 'react-native'
 
 const actionTypes = actions.actionTypes;
 
@@ -42,6 +43,16 @@ class TabRoute extends React.Component {
   render() {
     return null;
   }
+}
+
+const navigatorHeight = 64
+const tabBarHeight = 50
+function contentHeight(schemas) {
+    const contentHeight = Dimensions.get('window').height - navigatorHeight
+    if (schemas.tabs.footer) {
+        return contentHeight - tabBarHeight
+    }
+    return contentHeight
 }
 
 class Router extends React.Component {
@@ -220,18 +231,23 @@ class Router extends React.Component {
     }
 
     const layout = this.schemas.default.layout;
+    const height = contentHeight(this.schemas)
 
     if (layout === 'flex') {
       return (
         <View style={styles.transparent}>
           {navBar}
-          {child}
+          <View style={{ height }}>
+            {child}
+          </View>
         </View>
       );
     } else if (layout === 'absolute') {
       return (
         <View style={styles.transparent}>
-          {child}
+          <View style={{ height }}>
+            {child}
+          </View>
           {navBar}
         </View>
       );
