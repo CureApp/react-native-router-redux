@@ -15,17 +15,28 @@ const onSelect = props => el => {
 };
 
 const IMAGE_STYLE_DEFAULT = {
-  height: 25,
   resizeMode: 'contain',
   width: 30,
+  height: 25,
 }
-const imageStyle = props => {
+const imageStyle = (props, icon) => {
+  const result = Object.assign({}, IMAGE_STYLE_DEFAULT)
   if (props.tabStyles.tint) {
-    return Object.assign({
+    Object.assign(result, {
       tintColor: props.tabStyles.tint,
-    }, IMAGE_STYLE_DEFAULT)
+    })
   }
-  return IMAGE_STYLE_DEFAULT
+  if (icon.width) {
+    Object.assign(result, {
+      width: icon.width
+    })
+  }
+  if (icon.height) {
+    Object.assign(result, {
+      height: icon.height
+    })
+  }
+  return result
 };
 
 const tabBarStyle = props => ({
@@ -65,7 +76,7 @@ class TabBarIcon extends Component {
         {tabItem.icon &&
           <Image
             source={tabItem.icon}
-            style={imageStyle(this.props)}
+            style={imageStyle(this.props, tabItem.icon)}
             />
         }
         {tabItem.title &&
