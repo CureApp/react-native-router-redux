@@ -39,13 +39,20 @@ const imageStyle = (props, icon) => {
   return result
 };
 
-const tabBarStyle = props => ({
-  backgroundColor: props.tabBackgroundImage
+const tabBarStyle = props => {
+  const result = {
+    backgroundColor: props.tabBackgroundImage
       ? 'rgba(0, 0, 0, 0)'
       : (props.tabStyles.barTint || '#F9F9F9'),
-  borderTopColor: '#D8D8D8',
-  borderTopWidth: 1,
-});
+  }
+  if (props.tabBorderWidth) {
+      result.borderTopWidth = props.tabBorderWidth
+  }
+  if (props.tabBorderColor) {
+      result.borderTopColor = props.tabBorderColor
+  }
+  return result
+};
 
 const TAB_CONTAINER_STYLE_DEFAULT = {
   alignItems: 'center',
